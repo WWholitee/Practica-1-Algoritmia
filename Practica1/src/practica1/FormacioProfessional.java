@@ -1,19 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
- */
 package practica1;
 
 /**
  *
  * @author ellen
  */
-public class FormacioProfessional {
+public class FormacioProfessional extends Curso {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        // TODO code application logic here
+    private String especialidad;
+
+    public FormacioProfessional(String nombre, String codigo, String especialidad) {
+        super(nombre, codigo);
+        this.especialidad = especialidad;
+    }
+
+    @Override
+    public String getTipo() {
+        return "Formación Profesional (" + especialidad + ")";
+    }
+
+    @Override
+    public void mostrarDatos() {
+        System.out.println("Curso FP: " + getNombre() + " - Código: " + getCodigo() + " - Especialidad: " + especialidad);
     }
 }
