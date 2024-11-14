@@ -12,14 +12,15 @@ public abstract class Curso {
     // Atributos
     private String nombre_c;
     private String codi_c;
-    
+    private LlistaAssignatura llistaAssignatura;
     // Lista de asignaturas asociadas al curso
-    private List<Assignatura> asignaturas = new ArrayList<>();
+   
 
     // Constructor
     public Curso(String nombre, String codigo) {
         this.codi_c = codigo;
         this.nombre_c = nombre;
+        this.llistaAssignatura= new LlistaAssignatura();
     }
 
     // Métodos Getters
@@ -30,18 +31,14 @@ public abstract class Curso {
     public String getCodigo() {
         return codi_c;
     }
-
-    // Métodos para agregar y eliminar asignaturas
-    public void agregarAsignatura(Assignatura asignatura) {
-        asignaturas.add(asignatura);
+    public void AddAssignatura(Assignatura a ){
+        this.llistaAssignatura.addObject(a);
     }
-
-    public void eliminarAsignatura(Assignatura asignatura) {
-        asignaturas.remove(asignatura);
-    }
-
-    // Método para listar todas las asignaturas
-    public List<Assignatura> listarAsignaturas() {
+    public String StringAssignaturas(){
+        String asignaturas = "";
+        for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
+            asignaturas += this.llistaAssignatura.getElement(i) + "\n";
+        }
         return asignaturas;
     }
 

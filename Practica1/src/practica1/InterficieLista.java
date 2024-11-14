@@ -4,17 +4,16 @@
  */
 package practica1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ellen
  */
-import java.util.ArrayList;
-import java.util.List;
-
-public interface InterficieElemento {
-
-    //Métodos para obtener el identificador y la descripción de un elemento
-    String getIdentificador();
-
-    String getDescripcion();
+public interface InterficieLista {
+    public int longitud();
+    public void addObject(Object a);
+    public void Order();
+    public ArrayList lista();
+    public String getElement(int a);
 }

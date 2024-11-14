@@ -16,4 +16,14 @@ public class Batxiller extends Curso {
        super(nombre,codi);
        this.curss=curss;
    }
+
+    @Override
+    public String getTipo() {
+        return "Curso de Batxiller(" + curss + ")";
+    }
+
+    @Override
+    public void mostrarDatos() {
+        System.out.println("Curso Batxiller: " + getNombre() + " - Código: " + getCodigo() + " - Curso: " + curss);
+    }
 }
