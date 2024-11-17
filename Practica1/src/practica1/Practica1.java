@@ -18,36 +18,40 @@ public class Practica1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int num;
-        do{
+        do {
             System.out.println("OPCION 1:Dar de Alta un Curso y sus Asignaturas");
             num = scanner.nextInt();
-            
-            switch(num){
+            switch (num) {
                 case 1:
                     Curso curs;
                     System.out.println("Bachiller(1) o FP(2)");
-                    int tipo=scanner.nextInt();
-                    if(tipo ==1){
-                        curs= new Batxiller(scanner.next(),scanner.next(),scanner.next());
-                    }else
-                        curs = new FormacioProfessional(scanner.next(),scanner.next(),scanner.next());
+                    int tipo = scanner.nextInt();
+                    scanner.nextLine();
+                    if (tipo == 1) {
+                        System.out.println("Escriba el nombre, el codigo y el curso del Bachiller que quiere añadir");
+                        curs = new Batxiller(scanner.next(), scanner.next(), scanner.next());
+                    } else {
+                        System.out.println("Escriba el nombre, el codigo y el curso de la Formación Profesional que quiere añadir");
+                        curs = new FormacioProfessional(scanner.next(), scanner.next(), scanner.next());
+                    }
+                    
                     System.out.println("Afegir assignatures");
                     System.out.println("Dime cuantas asignaturas quieres meter");
-                    int numa=scanner.nextInt();
-                    for(int i=0; i< numa;i++){
-                        Assignatura a; 
+                    int numa = scanner.nextInt();
+                    for (int i = 0; i < numa; i++) {
+                        Assignatura a;
                         System.out.println("Añade nombre, codigo y numero de credits");
-                        a= new AssignaturaOblig(scanner.next(),scanner.next(),scanner.nextInt());
+                        a = new AssignaturaOblig(scanner.next(), scanner.next(), scanner.nextInt());
                         curs.AddAssignatura(a);
                     }
                     System.out.println("Lista assignaturas");
                     System.out.println(curs.StringAssignaturas());
                     break;
-             default:
+                default:
                     System.out.println("no es una opcio valida");
-                    break;       
+                    break;
             }
-        }while (num !=0 );
+        } while (num != 0);
     }
     
 }

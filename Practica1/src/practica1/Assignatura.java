@@ -21,7 +21,7 @@ public class Assignatura {
     }
     @Override
     public String toString() {
-        return "Assignatura: " + nombre_a + "con el codi " + codi_a;
+        return "Assignatura: " + nombre_a + " con el codi " + codi_a;
     }
 
 }
