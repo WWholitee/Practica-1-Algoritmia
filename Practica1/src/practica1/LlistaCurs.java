@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package practica1;
 
 import java.util.ArrayList;
@@ -10,33 +6,37 @@ import java.util.ArrayList;
  *
  * @author ellen
  */
-public class LlistaCurs implements InterficieLista{
-    
-    private ArrayList<Curso> listacurso;
-    
+public class LlistaCurs implements InterficieLista {
+
+    private ArrayList<Curso> listacurso;  // Cambiar el tipo de Object a Curso
+
     public LlistaCurs() {
-        listacurso= new ArrayList<>();
+        listacurso = new ArrayList<>();
     }
+
+    @Override
     public void addObject(Object o) {
         this.listacurso.add((Curso) o);
     }
+
+    @Override
     public int longitud() {
         return listacurso.size();
     }
 
     @Override
     public void Order() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public ArrayList lista() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.listacurso;
     }
 
     @Override
     public String getElement(int a) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return listacurso.get(a).toString();  // Usamos el método toString del curso
     }
-    
 }
+
