@@ -1,20 +1,19 @@
 package practica1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author ellen
  */
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Estudiantes implements InterficieElemento {
 
     private String nombre;
     private String dni;
     private List<Assignatura> asignaturasMatriculadas = new ArrayList<>();
 
-    //Constructor
+    // Constructor
     public Estudiantes(String nombre, String dni) {
         this.nombre = nombre;
         this.dni = dni;
@@ -29,7 +28,7 @@ public class Estudiantes implements InterficieElemento {
         return dni;
     }
 
-    //Métodos para matricular y desmatricular asignaturas
+    // Métodos para matricular y desmatricular asignaturas
     public void matricularAsignatura(Assignatura asignatura) {
         asignaturasMatriculadas.add(asignatura);
     }
@@ -38,7 +37,15 @@ public class Estudiantes implements InterficieElemento {
         asignaturasMatriculadas.remove(asignatura);
     }
 
-    //Método para listar Asignaturas matriculadas
+    // Método para desmatricular a un estudiante de todas las asignaturas de un curso
+    public void desmatricularDeCurso(Curso curso) {
+        List<Assignatura> asignaturasDelCurso = curso.getLlistaAssignatura().lista(); // Usamos el getter
+        for (Assignatura a : asignaturasDelCurso) {
+            desmatricularAsignatura(a); // Desmatriculamos al estudiante de cada asignatura del curso
+        }
+    }
+
+    // Método para listar Asignaturas matriculadas
     public List<Assignatura> getAsignaturasMatriculadas() {
         return asignaturasMatriculadas;
     }
