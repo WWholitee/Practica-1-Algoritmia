@@ -20,6 +20,7 @@ public class Practica1 {
         int num;
         do {
             System.out.println("OPCION 1:Dar de Alta un Curso y sus Asignaturas");
+            System.out.println("OPCION 2:Dar de Alta un alumno dada una asignatura a la que se quiere matricular");
             num = scanner.nextInt();
             switch (num) {
                 case 1:
@@ -34,7 +35,7 @@ public class Practica1 {
                         System.out.println("Escriba el nombre, el codigo y el curso de la Formación Profesional que quiere añadir");
                         curs = new FormacioProfessional(scanner.next(), scanner.next(), scanner.next());
                     }
-                    
+
                     System.out.println("Afegir assignatures");
                     System.out.println("Dime cuantas asignaturas quieres meter");
                     int numa = scanner.nextInt();
@@ -46,6 +47,27 @@ public class Practica1 {
                     }
                     System.out.println("Lista assignaturas");
                     System.out.println(curs.StringAssignaturas());
+                    break;
+                case 2:
+                    Assignatura assignatura;
+                    Estudiantes estudiante;
+                    ListaEstudiantes listaE = new ListaEstudiantes();
+                    System.out.println("Es una asignatura obligatoria(1) o opcional(2)");
+                    int aux = scanner.nextInt();
+                    scanner.nextLine();
+                    if (aux == 1) {
+                        System.out.println("Cual es la asignatura obligatoria a la que te quieres matricular? (Escribe el nombre, el codigo y los créditos");
+                        assignatura = new AssignaturaOblig(scanner.nextLine(), scanner.nextLine(), scanner.nextInt());
+                        scanner.nextLine();
+                    } else {
+                        System.out.println("Cual es la asignatura opcional a la que te quieres matricular? (Escribe el nombre, el codigo y el perfil");
+                        assignatura = new AssignaturaOpt(scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
+                    }
+                    System.out.println("Escribe el nombre y el DNI del estudiante");
+                    estudiante = new Estudiantes(scanner.nextLine(), scanner.nextLine());
+                    estudiante.matricularAsignatura(assignatura);
+                    listaE.addEstudiante(estudiante);
+                    System.out.println("Estudiante " + estudiante.getNombre() + " con DNI " + estudiante.getDNI() + " matriculado a la asignatura " + assignatura.toString());
                     break;
                 default:
                     System.out.println("no es una opcio valida");
