@@ -4,23 +4,17 @@ package practica1;
  *
  * @author ellen
  */
-
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Curso {
     // Atributos
     private String nombre_c;
     private String codi_c;
     private LlistaAssignatura llistaAssignatura;
-    // Lista de asignaturas asociadas al curso
-   
 
     // Constructor
     public Curso(String nombre, String codigo) {
         this.codi_c = codigo;
         this.nombre_c = nombre;
-        this.llistaAssignatura= new LlistaAssignatura();
+        this.llistaAssignatura = new LlistaAssignatura();
     }
 
     // Métodos Getters
@@ -31,10 +25,16 @@ public abstract class Curso {
     public String getCodigo() {
         return codi_c;
     }
-    public void AddAssignatura(Assignatura a ){
+
+    public LlistaAssignatura getLlistaAssignatura() {  // Añadimos el getter
+        return llistaAssignatura;
+    }
+
+    public void AddAssignatura(Assignatura a) {
         this.llistaAssignatura.addObject(a);
     }
-    public String StringAssignaturas(){
+
+    public String StringAssignaturas() {
         String asignaturas = "";
         for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
             asignaturas += this.llistaAssignatura.getElement(i) + "\n";
@@ -45,6 +45,11 @@ public abstract class Curso {
     public abstract String getTipo();
 
     public abstract void mostrarDatos();
+
+    // Método para eliminar asignaturas de este curso
+    public void eliminarAsignaturas() {
+        this.llistaAssignatura = new LlistaAssignatura(); // Limpiar la lista de asignaturas
+    }
 
     // Método toString
     @Override
