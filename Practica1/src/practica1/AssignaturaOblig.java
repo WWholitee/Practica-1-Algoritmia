@@ -14,4 +14,9 @@ public class AssignaturaOblig extends Assignatura{
        super(nombre,codi); 
        this.credits= credits;
     }
+    
+    public void imprimirAsignatura(){
+        System.out.println("    ASSIGNATURA: " + getNombre_a() + " OBLIGATORIA    CRÉDITOS: " + credits);
+        imprimirMatriculados();
+    }
 }

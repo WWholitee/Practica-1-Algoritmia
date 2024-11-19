@@ -13,7 +13,19 @@ public class LlistaCurs implements InterficieLista {
     public LlistaCurs() {
         listacurso = new ArrayList<>();
     }
-
+    
+    public void imprimirDatosCurso(String nombre, String codi){
+        for(Curso c:listacurso){
+            if((c.nombre_c == nombre) && (c.codi_c == codi)){
+                c.imprimirCurso();
+            }else{
+                System.out.println("Este curso no existe");
+            }
+        }
+        
+    }
+    
+   
     @Override
     public void addObject(Object o) {
         this.listacurso.add((Curso) o);

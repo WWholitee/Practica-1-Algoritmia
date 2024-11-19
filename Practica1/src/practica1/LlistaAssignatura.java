@@ -11,6 +11,12 @@ public class LlistaAssignatura implements InterficieLista {
     public LlistaAssignatura(){
         this.LlistaAssignatura= new ArrayList<>();
     }
+    
+    public void imprimirAssignatura(){
+        for(Assignatura a : LlistaAssignatura){
+            a.imprimirMatriculados();
+        }
+    }
     @Override
     public int longitud() {
         return LlistaAssignatura.size();

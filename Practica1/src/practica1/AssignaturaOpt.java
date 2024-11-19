@@ -15,4 +15,9 @@ public class AssignaturaOpt extends Assignatura {
         super(nombre,codi);
         this.perfil =perfil;
     }
+    public void imprimirAsignatura(){
+        System.out.println("    ASSIGNATURA: " + getNombre_a() + " OBLIGATORIA    PERFIL: " + perfil);
+        imprimirMatriculados();
+    
+    }
 }

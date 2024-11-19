@@ -6,9 +6,9 @@ package practica1;
  */
 public abstract class Curso {
     // Atributos
-    private String nombre_c;
-    private String codi_c;
-    private LlistaAssignatura llistaAssignatura;
+    String nombre_c;
+    String codi_c;
+    LlistaAssignatura llistaAssignatura;
 
     // Constructor
     public Curso(String nombre, String codigo) {
@@ -45,7 +45,7 @@ public abstract class Curso {
     public abstract String getTipo();
 
     public abstract void mostrarDatos();
-
+    public abstract void imprimirCurso();
     // Método para eliminar asignaturas de este curso
     public void eliminarAsignaturas() {
         this.llistaAssignatura = new LlistaAssignatura(); // Limpiar la lista de asignaturas

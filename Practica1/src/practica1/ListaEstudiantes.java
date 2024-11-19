@@ -23,7 +23,12 @@ public class ListaEstudiantes {
         // Si no existe, añadimos al nuevo estudiante
         this.ListaEstudiantes.add(alumnoNuevo);
     }
-
+    
+    public void imprimirEstudiantes(){
+        for(Estudiantes e : ListaEstudiantes){
+            System.out.println("      ---Nombre: " + e.getNombre() + "       DNI: " + e.getDNI());
+        }
+    }
     // Método para desmatricular a todos los estudiantes de un curso
     public void desmatricularEstudiantesDeCurso(Curso curso) {
         for (Estudiantes estudiante : ListaEstudiantes) {

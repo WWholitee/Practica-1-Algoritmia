@@ -7,12 +7,15 @@ package practica1;
 public class FormacioProfessional extends Curso {
 
     private String especialidad;
-
     public FormacioProfessional(String nombre, String codigo, String especialidad) {
         super(nombre, codigo);
         this.especialidad = especialidad;
     }
-
+    
+    public void imprimirCurso(){
+        System.out.println("Formació Professional: " + getNombre());
+        llistaAssignatura.imprimirAssignatura();
+    }
     @Override
     public String getTipo() {
         return "Formación Profesional (" + especialidad + ")";
