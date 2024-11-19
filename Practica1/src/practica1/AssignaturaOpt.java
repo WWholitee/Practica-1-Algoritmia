@@ -9,15 +9,21 @@ package practica1;
  * @author ellen
  */
 public class AssignaturaOpt extends Assignatura {
+
     private String perfil;
-    
-    public AssignaturaOpt(String nombre,String codi, String perfil){
-        super(nombre,codi);
-        this.perfil =perfil;
+
+    public AssignaturaOpt(String nombre, String codi, String perfil) {
+        super(nombre, codi);
+        this.perfil = perfil;
     }
-    public void imprimirAsignatura(){
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void imprimirAsignatura() {
         System.out.println("    ASSIGNATURA: " + getNombre_a() + " OBLIGATORIA    PERFIL: " + perfil);
         imprimirMatriculados();
-    
+
     }
 }
