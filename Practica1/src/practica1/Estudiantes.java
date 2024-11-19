@@ -39,9 +39,9 @@ public class Estudiantes implements InterficieElemento {
 
     // Método para desmatricular a un estudiante de todas las asignaturas de un curso
     public void desmatricularDeCurso(Curso curso) {
-        List<Assignatura> asignaturasDelCurso = curso.getLlistaAssignatura().lista(); // Usamos el getter
+        List<Assignatura> asignaturasDelCurso = curso.getLlistaAssignatura().lista();
         for (Assignatura a : asignaturasDelCurso) {
-            desmatricularAsignatura(a); // Desmatriculamos al estudiante de cada asignatura del curso
+            desmatricularAsignatura(a);
         }
     }
 
@@ -58,5 +58,10 @@ public class Estudiantes implements InterficieElemento {
     @Override
     public String getDescripcion() {
         return nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante: " + nombre + ", DNI: " + dni;
     }
 }
