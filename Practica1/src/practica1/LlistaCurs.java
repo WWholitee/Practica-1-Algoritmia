@@ -2,53 +2,39 @@ package practica1;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author ellen
- */
-public class LlistaCurs implements InterficieLista {
+public class LlistaCurs {
 
-    private ArrayList<Curso> listacurso;  // Cambiar el tipo de Object a Curso
+    private ArrayList<Curso> cursos;
 
     public LlistaCurs() {
-        listacurso = new ArrayList<>();
+        this.cursos = new ArrayList<>();
     }
-    
-    public void imprimirDatosCurso(String nombre, String codi){
-        for(Curso c:listacurso){
-            if((c.nombre_c == nombre) && (c.codi_c == codi)){
-                c.imprimirCurso();
-            }else{
-                System.out.println("Este curso no existe");
+
+    public void addObject(Curso curso) {
+        cursos.add(curso);
+    }
+
+    public int longitud() {
+        return cursos.size();
+    }
+
+    public ArrayList<Curso> lista() {
+        return cursos;
+    }
+
+    // Método para imprimir las asignaturas y estudiantes de un curso específico
+    public void imprimirDatosCurso(String nombreCurso, String codigoCurso) {
+        boolean encontrado = false;
+        for (Curso curso : cursos) {
+            if (curso.getNombre().equals(nombreCurso) && curso.getCodigo().equals(codigoCurso)) {
+                System.out.println("Curso: " + curso.getNombre() + " (" + curso.getCodigo() + ")");
+                curso.imprimirAsignaturasConDetalles();
+                encontrado = true;
+                break;
             }
         }
-        
-    }
-    
-   
-    @Override
-    public void addObject(Object o) {
-        this.listacurso.add((Curso) o);
-    }
-
-    @Override
-    public int longitud() {
-        return listacurso.size();
-    }
-
-    @Override
-    public void Order() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public ArrayList lista() {
-        return this.listacurso;
-    }
-
-    @Override
-    public String getElement(int a) {
-        return listacurso.get(a).toString();  // Usamos el método toString del curso
+        if (!encontrado) {
+            System.out.println("Curso no encontrado.");
+        }
     }
 }
-
