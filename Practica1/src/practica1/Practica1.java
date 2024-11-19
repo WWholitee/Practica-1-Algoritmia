@@ -21,7 +21,7 @@ public class Practica1 {
             System.out.println("OPCION 4: Dar de baja una assignatura");
             System.out.println("OPCION 5: Dado un curso imprimir todas sus asignaturas y los estudiantes que estan matriculados a cada una de ellas");
             num = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             switch (num) {
                 case 1:
@@ -43,7 +43,7 @@ public class Practica1 {
                     System.out.println("Añadir asignaturas");
                     System.out.println("Dime cuántas asignaturas quieres añadir");
                     int numa = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     for (int i = 0; i < numa; i++) {
                         Assignatura a;
                         System.out.println("Añade nombre, código y número de créditos");
@@ -66,15 +66,15 @@ public class Practica1 {
                     if (aux == 1) {
                         System.out.println("¿Cuál es la asignatura obligatoria a la que te quieres matricular? (Escribe el nombre, el código y los créditos)");
                         assignatura = new AssignaturaOblig(scanner.nextLine(), scanner.nextLine(), scanner.nextInt());
-                        scanner.nextLine(); 
+                        scanner.nextLine();
                     } else {
                         System.out.println("¿Cuál es la asignatura opcional a la que te quieres matricular? (Escribe el nombre, el código y el perfil)");
                         assignatura = new AssignaturaOpt(scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
                     }
                     System.out.println("Escribe el nombre y el DNI del estudiante");
                     estudiante = new Estudiantes(scanner.nextLine(), scanner.nextLine());
-                    estudiante.matricularAsignatura(assignatura);
-                    listaEstudiantes.addEstudiante(estudiante);
+                    estudiante.matricularAsignatura(assignatura); // Matriculamos el estudiante en la asignatura
+                    listaEstudiantes.addEstudiante(estudiante);  // Añadimos el estudiante a la lista de estudiantes
                     System.out.println("Estudiante " + estudiante.getNombre() + " con DNI " + estudiante.getDNI() + " matriculado en la asignatura " + assignatura.toString());
                     break;
 
@@ -112,22 +112,47 @@ public class Practica1 {
                     if (!encontrado) {
                         System.out.println("Curso no encontrado.");
                     }
-                    
+
                     break;
                 case 5:
-                    String nom_aux, codi_aux;
+                    String nom_aux,
+                     codi_aux;
                     System.out.println("Introduce el nombre del curso del cual quieres ver los datos (escribe el nombre y el codigo).");
                     nom_aux = scanner.nextLine();
                     codi_aux = scanner.nextLine();
-                    llistaCursos.imprimirDatosCurso(nom_aux, codi_aux);
+
+                    // Encontramos el curso en la lista
+                    boolean cursoEncontrado = false;
+                    for (int i = 0; i < llistaCursos.longitud(); i++) {
+                        Curso curso = (Curso) llistaCursos.lista().get(i);
+
+                        // Comprobamos si el nombre y código coinciden
+                        if (curso.getNombre().equals(nom_aux) && curso.getCodigo().equals(codi_aux)) {
+                            cursoEncontrado = true;
+                            System.out.println("Curso: " + curso.getNombre() + " (" + curso.getCodigo() + ")");
+                            System.out.println("Listado de Asignaturas del curso " + curso.getNombre() + " (" + curso.getCodigo() + "):");
+
+                            for (int j = 0; j < curso.getLlistaAssignatura().longitud(); j++) {
+                                Assignatura asignatura = curso.getLlistaAssignatura().getObject(j);
+
+                                // Imprimimos los detalles de la asignatura
+                                System.out.println(asignatura.toStringConDetalles());
+
+                                // Imprimimos los estudiantes matriculados en esta asignatura
+                                asignatura.imprimirMatriculados();
+                            }
+                            break;
+                        }
+                    }
+
+                    if (!cursoEncontrado) {
+                        System.out.println("No se encontró el curso con el nombre y código proporcionado.");
+                    }
                     break;
-                default:
-                    System.out.println("Opción no válida.");
-                    break;
+
             }
         } while (num != 0);
 
         scanner.close();  // Cerrar el scanner
     }
 }
-
