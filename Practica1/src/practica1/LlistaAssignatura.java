@@ -30,11 +30,18 @@ public class LlistaAssignatura implements InterficieLista {
     public ArrayList lista() {
         return this.LlistaAssignatura;
     }
+    public Assignatura getObject(int i){
+        return this.LlistaAssignatura.get(i);
+    }
     //devuelve elemento de una posicion
     @Override
     public String getElement(int a) {
         String element =this.LlistaAssignatura.get(a).toString();
         return element;
+    }
+    
+    public void EliminarElement(int a){
+        this.LlistaAssignatura.remove(a);
     }
     
 }

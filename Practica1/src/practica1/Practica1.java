@@ -18,6 +18,7 @@ public class Practica1 {
             System.out.println("OPCION 1: Dar de Alta un Curso y sus Asignaturas");
             System.out.println("OPCION 2: Dar de Alta un alumno dada una asignatura a la que se quiere matricular");
             System.out.println("OPCION 3: Dar de baja un curso");
+            System.out.println("OPCION 4: Dar de baja una assignatura");
             num = scanner.nextInt();
             scanner.nextLine(); 
 
@@ -94,6 +95,23 @@ public class Practica1 {
                     if (!encontrado) {
                         System.out.println("Curso no encontrado.");
                     }
+                    break;
+                case 4:
+                    System.out.println("Introduce el nombre del curso donde se encuentra la asignatura a dar de baja");
+                    cursoNombre = scanner.nextLine();
+                    System.out.println("Introduce el nombre de la asignatura a borrar");
+                    String assignaturaNombre= scanner.nextLine();
+                    encontrado = false;
+                    for (int i = 0; i < llistaCursos.longitud(); i++) {
+                        Curso curso = (Curso) llistaCursos.lista().get(i);
+                        if (curso.getNombre().equals(cursoNombre)) {
+                            curso.eliminarAssignatura(assignaturaNombre);
+                        }
+                    }
+                    if (!encontrado) {
+                        System.out.println("Curso no encontrado.");
+                    }
+                    
                     break;
 
                 default:

@@ -19,5 +19,12 @@ public class Assignatura {
     public String toString() {
         return "Assignatura: " + nombre_a + " con el codi " + codi_a;
     }
+    
+    public boolean compareNom(String nombrea){
+        if(this.nombre_a== nombrea){
+            return true;
+        }
+        return false;
+    }
 
 }
