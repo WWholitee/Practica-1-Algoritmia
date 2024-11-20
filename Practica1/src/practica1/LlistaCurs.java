@@ -2,39 +2,50 @@ package practica1;
 
 import java.util.ArrayList;
 
-public class LlistaCurs {
+/**
+ *
+ * @author ellen
+ */
+public class LlistaCurs implements InterficieLista {
 
-    private ArrayList<Curso> cursos;
+    private ArrayList<Curso> listacurso;  // Cambiar el tipo de Object a Curso
 
     public LlistaCurs() {
-        this.cursos = new ArrayList<>();
+        listacurso = new ArrayList<>();
     }
 
-    public void addObject(Curso curso) {
-        cursos.add(curso);
+    @Override
+    public void addObject(Object o) {
+        this.listacurso.add((Curso) o);
     }
 
+    @Override
     public int longitud() {
-        return cursos.size();
+        return listacurso.size();
     }
 
-    public ArrayList<Curso> lista() {
-        return cursos;
+    @Override
+    public void Order() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    // Método para imprimir las asignaturas y estudiantes de un curso específico
-    public void imprimirDatosCurso(String nombreCurso, String codigoCurso) {
-        boolean encontrado = false;
-        for (Curso curso : cursos) {
-            if (curso.getNombre().equals(nombreCurso) && curso.getCodigo().equals(codigoCurso)) {
-                System.out.println("Curso: " + curso.getNombre() + " (" + curso.getCodigo() + ")");
-                curso.imprimirAsignaturasConDetalles();
-                encontrado = true;
-                break;
-            }
+    @Override
+    public ArrayList lista() {
+        return this.listacurso;
+    }
+
+    @Override
+    public String getElement(int a) {
+        return listacurso.get(a).toString();  // Usamos el método toString del curso
+    }
+    public void BuscarCodiAssignatura(String codi,String dni){
+        for(Curso c : listacurso){
+            c.AfegirAlumneAAssignatura(codi, dni);
         }
-        if (!encontrado) {
-            System.out.println("Curso no encontrado.");
-        }
+        
+    }
+    public Curso getCurs(int a){
+        return listacurso.get(a);
     }
 }
+

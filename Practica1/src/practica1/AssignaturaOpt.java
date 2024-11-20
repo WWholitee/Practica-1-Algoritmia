@@ -9,8 +9,7 @@ package practica1;
  * @author ellen
  */
 public class AssignaturaOpt extends Assignatura {
-
-    private String perfil;
+     private String perfil;
 
     public AssignaturaOpt(String nombre, String codi, String perfil) {
         super(nombre, codi);
@@ -23,7 +22,7 @@ public class AssignaturaOpt extends Assignatura {
 
     public void imprimirAsignatura() {
         System.out.println("    ASSIGNATURA: " + getNombre_a() + " OBLIGATORIA    PERFIL: " + perfil);
-        imprimirMatriculados();
+        
 
     }
 }

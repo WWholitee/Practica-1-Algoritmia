@@ -8,9 +8,8 @@ package practica1;
  *
  * @author ellen
  */
-public class AssignaturaOblig extends Assignatura {
-
-    private int credits;
+public class AssignaturaOblig extends Assignatura{
+       private int credits;
 
     public AssignaturaOblig(String nombre, String codi, int credits) {
         super(nombre, codi);
@@ -23,6 +22,6 @@ public class AssignaturaOblig extends Assignatura {
 
     public void imprimirAsignatura() {
         System.out.println("    ASSIGNATURA: " + getNombre_a() + " OBLIGATORIA    CRÉDITOS: " + credits);
-        imprimirMatriculados();
+        
     }
 }

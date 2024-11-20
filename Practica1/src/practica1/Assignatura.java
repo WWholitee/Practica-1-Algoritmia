@@ -1,23 +1,28 @@
 package practica1;
 
-public class Assignatura {
+import java.util.ArrayList;
 
-    private String nombre_a;
-    private String codi_a;
-    private ListaEstudiantes estudiantesMatriculados; // Inicializar correctamente la lista
+/**
+ *
+ * @author ellen
+ */
+public class Assignatura implements InterficieElemento{
 
-    // Constructor
-    public Assignatura(String nombre, String codi) {
-        this.nombre_a = nombre;
-        this.codi_a = codi;
-        this.estudiantesMatriculados = new ListaEstudiantes(); // Inicialización de la lista de estudiantes
+   private String nombre_a;
+   private String codi_a;
+   private ArrayList<String> ListaCodiEstudiant;
+   
+   //constructor
+    public Assignatura(String nombre,String codi){
+        this.nombre_a= nombre;
+        this.codi_a=codi;
+        ListaCodiEstudiant=new ArrayList<>();
+        
     }
-
     @Override
     public String toString() {
-        return "Assignatura: " + nombre_a + " (Código: " + codi_a + ")";
+        return "Assignatura: " + nombre_a + " con el codi " + codi_a;
     }
-
     public String toStringConDetalles() {
         String tipo = "Opcional";
         int credits = 0;
@@ -36,30 +41,38 @@ public class Assignatura {
                 + ", Créditos: " + credits + ", Perfil: " + perfil;
     }
 
-    // Método para matricular estudiantes en la asignatura
-    public void matricularEstudiante(Estudiantes e) {
-        estudiantesMatriculados.addEstudiante(e);
-    }
-
-    // Método para imprimir los estudiantes matriculados
-    public void imprimirMatriculados() {
-        System.out.println("Estudiantes matriculados en " + nombre_a + ":");
-        if (estudiantesMatriculados.longitud() == 0) {
-            System.out.println("No hay estudiantes matriculados.");
-        } else {
-            estudiantesMatriculados.imprimirEstudiantes(); // Imprime todos los estudiantes
-        }
-    }
-
-    public boolean compareNom(String nombrea) {
+    
+    public boolean compareNom(String nombrea){
         return this.nombre_a.equals(nombrea);
     }
+    public boolean compareCodi(String codi){
+        return this.codi_a.equals(codi);
+    }
+    
+    public void AfegirEstudiant(String dni){
+        this.ListaCodiEstudiant.add(dni);
+    }
+    
+    public void desmatricularAsignatura(String dni) {
+        this.ListaCodiEstudiant.removeIf(n ->(n==dni));
+    }
 
+    @Override
+    public String getIdentificador() {
+        return codi_a;
+    }
+    
+   
+    public String getCodiEstudiant(int i) {
+        return this.ListaCodiEstudiant.get(i);
+    }
+
+    @Override
+    public String getDescripcion() {
+        return nombre_a;
+    }
     public String getNombre_a() {
         return nombre_a;
     }
 
-    public String getCodi_a() {
-        return codi_a;
-    }
 }
