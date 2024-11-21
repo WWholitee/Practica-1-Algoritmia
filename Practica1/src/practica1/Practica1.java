@@ -28,8 +28,8 @@ public class Practica1 {
             scanner.nextLine(); 
 
             switch (num) {
-                case 1:
-                    // Dar de alta un curso y sus asignaturas
+                case 1:// Dar de alta un curso y sus asignaturas
+
                     Curso curs;
                     System.out.println("Bachiller(1) o FP(2)");
                     int tipo = scanner.nextInt();
@@ -46,17 +46,22 @@ public class Practica1 {
 
                     System.out.println("Añadir asignaturas");
                     System.out.println("Dime cuántas asignaturas quieres añadir");
+                    //pedimos numero de asignaturas
                     int numa = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
+                    //creamos asignaturas para el curso
                     for (int i = 0; i < numa; i++) {
                         Assignatura a;
                         System.out.println("Añade nombre, código y número de créditos");
                         a = new AssignaturaOblig(scanner.nextLine(), scanner.nextLine(), scanner.nextInt());
                         scanner.nextLine();
                         curs.AddAssignatura(a);
+                        curs.Order();
+                        
                     }
                     System.out.println("Lista de asignaturas:");
                     System.out.println(curs.StringAssignaturas());
+                    //MUY IMPORTANTE !!! METEMOS EL CURSO EN LA LISTA
                     llistaCursos.addObject(curs);
                     break;
 
@@ -71,10 +76,14 @@ public class Practica1 {
                     System.out.println("nombre y dni del estudiante a matricular ");
                     nom=scanner.nextLine();
                     dni=scanner.nextLine();
+                    //creamos el estudiante
                     estudiante = new Estudiantes(nom, dni);
                     System.out.println("Que codigo tiene la assignatura a la que queires matricular al alumno?");
                     codi=scanner.nextLine();
-                    listaEstudiantes.addEstudiante(estudiante);
+                    if(listaEstudiantes.ExisteEstudiante(estudiante)==false){
+                        listaEstudiantes.addObject(estudiante);
+                        listaEstudiantes.Order();
+                    }
                     llistaCursos.BuscarCodiAssignatura(codi, dni);
                     listaEstudiantes.AfegirAssignaturaAAlumne(dni, codi);
                     break;
@@ -164,7 +173,7 @@ public class Practica1 {
                                 // Imprimimos los detalles de la asignatura
                                 System.out.println(asignatura.toStringConDetalles());
                                 String codi_a=asignatura.getIdentificador();
-                                listaEstudiantes.BuscarAlumnes(codi_a);
+                                System.out.println(listaEstudiantes.BuscarAlumnes(codi_a));
                                 
                                 // Imprimimos los estudiantes matriculados en esta asignatura
                                 
@@ -184,7 +193,7 @@ public class Practica1 {
                                 encontrado =true;
                                 String codi_a= curso.CodiAssignatura(nombreassignatura);
                                 System.out.println(curso.toStringConDetalles());
-                                listaEstudiantes.BuscarAlumnes(codi_a);
+                                System.out.println(listaEstudiantes.BuscarAlumnes(codi_a));
                             }
                     }
                     
@@ -197,7 +206,7 @@ public class Practica1 {
                     //buscamos si el estudiante existe
                     for(int i = 0; i < listaEstudiantes.longitud(); i++){
                         error1="No hay alumno mismo nombre";
-                        if(listaEstudiantes.getEstudiante(i).getNombre().equals(nome)){
+                        if(listaEstudiantes.getEstudiante(i).getDescripcion().equals(nome)){
                             //cogemos todos los codigos del estudiante
                             for(int j =0;j<listaEstudiantes.getEstudiante(i).getList().size();j++ ){
                                 String codi_a=listaEstudiantes.getEstudiante(i).getAsignaturasMatriculadas(j);

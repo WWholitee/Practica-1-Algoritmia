@@ -12,8 +12,9 @@ import java.util.ArrayList;
  */
 public interface InterficieLista {
     public int longitud();
-    public void addObject(Object a);
     public void Order();
     public ArrayList lista();
     public String getElement(int a);
+    public Object getObject(int i);
+    public void addObject(Object a);
 }

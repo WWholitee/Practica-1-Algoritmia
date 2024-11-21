@@ -48,11 +48,11 @@ public class Assignatura implements InterficieElemento{
     public boolean compareCodi(String codi){
         return this.codi_a.equals(codi);
     }
-    
+    //AÑADIMOS EL CODIGO DEL ALUMNO EN LA LISTA DE LA ASIGNATURA
     public void AfegirEstudiant(String dni){
         this.ListaCodiEstudiant.add(dni);
     }
-    
+    //ELIMINAMOS CODIGO DEL ALUMNO EN LA ASIGNATURA
     public void desmatricularAsignatura(String dni) {
         this.ListaCodiEstudiant.removeIf(n ->(n==dni));
     }

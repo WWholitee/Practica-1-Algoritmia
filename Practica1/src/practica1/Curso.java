@@ -33,6 +33,9 @@ public abstract class Curso {
     public void AddAssignatura(Assignatura a) {
         this.llistaAssignatura.addObject(a);
     }
+    public void Order(){
+        this.llistaAssignatura.Order();
+    }
 
     public String StringAssignaturas() {
         String asignaturas = "";
@@ -45,12 +48,7 @@ public abstract class Curso {
     public abstract String getTipo();
 
     public abstract void mostrarDatos();
-
-    // Método para eliminar asignaturas de este curso
-    public void eliminarAsignaturas() {
-        this.llistaAssignatura = new LlistaAssignatura(); // Limpiar la lista de asignaturas
-    }
-    
+    //METODO QUE ELIMINA UNA ASIGNATURA SEGUN SU NOMBRE
     public void eliminarAssignatura(String nombre){
         Assignatura assignatura;
         boolean encontrado=false;
@@ -66,7 +64,7 @@ public abstract class Curso {
         }else
             System.out.println("No se ha encontrado la assignatura");
     }
-    
+    //AÑADIMOS EL CODIGO DEL ALUMNO A UNA ASIGNATURA
     public void AfegirAlumneAAssignatura(String codi, String dni){
         Assignatura assignatura;
         boolean encontrado=false;
@@ -76,7 +74,7 @@ public abstract class Curso {
             if(assignatura.compareCodi(codi)==true){
                 this.llistaAssignatura.getObject(i).AfegirEstudiant(dni);
                 encontrado=true;
-                System.out.println(this.llistaAssignatura.getObject(i).getCodiEstudiant(i));
+                
             }
         }
         if(encontrado=true){
@@ -97,7 +95,7 @@ public abstract class Curso {
         return encontrado;
     }
     
-    
+    //STRING CON DETALLES 
     public String toStringConDetalles(){
         String tipo = "Opcional";
         String especializacio_curso="";

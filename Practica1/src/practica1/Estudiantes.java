@@ -19,41 +19,38 @@ public class Estudiantes implements InterficieElemento {
         this.dni = dni;
         ListaCodiAssignatura=new ArrayList<String>();
     }
-
+    
     // Métodos Getters
-    public String getNombre() {
+    @Override
+    public String getDescripcion() {
         return nombre;
     }
-
-    public String getDNI() {
+    @Override
+    public String getIdentificador() {
         return dni;
     }
-
-    // Métodos para matricular y desmatricular asignaturas
+    
+    //AÑADIR CODIGO ASIGNATURA AL ALUMNO
     public void matricularAsignatura(String codi) {
         ListaCodiAssignatura.add(codi);
     }
-
+    
+    //ELIMINAMOS CODIGO AIGNATURA AL ALUMNO
     public void desmatricularAsignatura(String codi) {
         ListaCodiAssignatura.removeIf(n ->(n==codi));
     }
-
-    // Método para desmatricular a un estudiante de todas las asignaturas de un curso
-    /*public void desmatricularDeCurso(Curso curso) {
-        List<Assignatura> asignaturasDelCurso = curso.getLlistaAssignatura().lista(); // Usamos el getter
-        for (Assignatura a : asignaturasDelCurso) {
-            desmatricularAsignatura(a); // Desmatriculamos al estudiante de cada asignatura del curso
-        }
-    }*/
 
     // Método devuelve codi assignatura segons codi
     public String getAsignaturasMatriculadas(int i) {
         return ListaCodiAssignatura.get(i);
     }
+    
+    //DEVUELVE LISTA DEL CODIGO DE ASIGNATURAS
     public ArrayList getList(){
         return this.ListaCodiAssignatura;
     }
     
+    //Metodo que devuelve true si el alumno esta matriculado de esta asignatura
     public boolean EstaMatriculado(String codi){
         boolean matriculado=false;
         for(int i =0; i<this.ListaCodiAssignatura.size();i++){
@@ -64,15 +61,6 @@ public class Estudiantes implements InterficieElemento {
         return matriculado;
     }
     
-    @Override
-    public String getIdentificador() {
-        return dni;
-    }
-
-    @Override
-    public String getDescripcion() {
-        return nombre;
-    }
     @Override
     public String toString() {
         return "Estudiant: " + nombre + " con el dni " + dni;
