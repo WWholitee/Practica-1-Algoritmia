@@ -1,97 +1,91 @@
 package practica1;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Comparator;
 
-/**
- *
- * @author ellen
- */
-public class ListaEstudiantes implements InterficieLista{
-    private ArrayList<Estudiantes> ListaEstudiantes;
-    
+public class ListaEstudiantes implements InterficieLista, Iterable<Estudiantes> {
+
+    private ArrayList<Estudiantes> listaEstudiantes;
+
     public ListaEstudiantes() {
-        this.ListaEstudiantes = new ArrayList<>();
+        this.listaEstudiantes = new ArrayList<>();
     }
-    
+
     @Override
     public int longitud() {
-        return ListaEstudiantes.size();
+        return listaEstudiantes.size();
     }
-     @Override
+
+    @Override
     public void Order() {
-         this.ListaEstudiantes.sort(Comparator.comparing(Estudiantes::getDescripcion));
+        this.listaEstudiantes.sort(Comparator.comparing(Estudiantes::getDescripcion));
     }
-     @Override
+
+    @Override
     public ArrayList lista() {
-        return this.ListaEstudiantes;
+        return this.listaEstudiantes;
     }
 
     @Override
     public String getElement(int a) {
-        return this.ListaEstudiantes.get(a).toString();
+        return this.listaEstudiantes.get(a).toString();
     }
 
     @Override
     public Object getObject(int i) {
-        return this.ListaEstudiantes.get(i);
+        return this.listaEstudiantes.get(i);
     }
+
     @Override
-    public void addObject(Object alumnoNuevo){
-       ListaEstudiantes.add((Estudiantes)alumnoNuevo);
+    public void addObject(Object alumnoNuevo) {
+        listaEstudiantes.add((Estudiantes) alumnoNuevo);
     }
-    
-    //METODO DEVUELVE TRUE SI EL ALUMNO YA EXISTE EN LA LISTA
-    public boolean ExisteEstudiante(Estudiantes alumnoNuevo){
-        boolean replica=false;
-        for(Estudiantes e : ListaEstudiantes){
-            if ((e.getDescripcion().equals(alumnoNuevo.getDescripcion())) && (e.getIdentificador().equals(alumnoNuevo.getIdentificador()))){
-                replica=true;
+
+    public boolean ExisteEstudiante(Estudiantes alumnoNuevo) {
+        for (Estudiantes e : listaEstudiantes) {
+            if (e.getDescripcion().equals(alumnoNuevo.getDescripcion()) && e.getIdentificador().equals(alumnoNuevo.getIdentificador())) {
+                return true;
             }
-            
         }
-        return replica;
+        return false;
     }
-    //METODO QUE DADO UN DNI DE UN ALUMNO AÑADE EN CODIGO DE LA ASIGNATURA AL ALUMNO
-    public void AfegirAssignaturaAAlumne(String dni,String codi){
-        for(Estudiantes e : ListaEstudiantes){
-            if (e.getIdentificador().equals(dni)){
+
+    public void AfegirAssignaturaAAlumne(String dni, String codi) {
+        for (Estudiantes e : listaEstudiantes) {
+            if (e.getIdentificador().equals(dni)) {
                 e.matricularAsignatura(codi);
             }
         }
     }
-    
-    
-//    public boolean BuscarEstudianteNombre(String nombre){
-//        boolean encontrado=false;
-//        for(Estudiantes e : ListaEstudiantes){
-//            
-//        }
-//        return encontrado;
-//    }
-    //DEVUELVE STRING DE LOS ALUMNOS QUE TIENEN ESE CODIGO DE ASIGNATURA
-    public String BuscarAlumnes(String codi){
-        String frase="";
-        for(Estudiantes e : ListaEstudiantes){
-            if(e.EstaMatriculado(codi)==true){
-                
-                frase= frase+e.toString()+'\n';
+
+    public ArrayList<String> BuscarAlumnes(String codigoAsignatura) {
+        ArrayList<String> estudiantesMatriculados = new ArrayList<>();
+
+        // Recorremos todos los estudiantes
+        for (Estudiantes estudiante : listaEstudiantes) {
+            if (estudiante.EstaMatriculado(codigoAsignatura)) {
+                estudiantesMatriculados.add(estudiante.getDescripcion()); // Agrega el nombre del estudiante
             }
         }
-        return frase;
+
+        return estudiantesMatriculados; // Devuelve la lista de estudiantes
     }
-    //METODO QUE ELIMINA EL CODIGO DE LA ASIGNATURA DADA EN TODOS LOS ESTUDIANTES
-    public void EliminarAsignatura(String codi){
-        for(Estudiantes e : ListaEstudiantes){
-            if(e.EstaMatriculado(codi)==true){
+
+    public void EliminarAsignatura(String codi) {
+        for (Estudiantes e : listaEstudiantes) {
+            if (e.EstaMatriculado(codi)) {
                 e.desmatricularAsignatura(codi);
             }
         }
     }
-       
-    public Estudiantes getEstudiante(int i){
-        return ListaEstudiantes.get(i);
+
+    public Estudiantes getEstudiante(int i) {
+        return listaEstudiantes.get(i);
     }
 
-    
+    @Override
+    public Iterator<Estudiantes> iterator() {
+        return listaEstudiantes.iterator();
+    }
 }
