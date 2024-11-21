@@ -196,6 +196,7 @@ public class Practica1GUI extends JFrame {
                         // Crear la asignatura
                         Assignatura nuevaAsignatura = new AssignaturaOblig(nombreAsignatura, codigoAsignatura, creditosAsignatura);
                         nuevoCurso.AddAssignatura(nuevaAsignatura); // Añadir asignatura al curso
+                        nuevoCurso.Order();
                     }
                 }
             }
@@ -247,6 +248,7 @@ public class Practica1GUI extends JFrame {
                 // Crear nuevo estudiante
                 estudianteExistente = new Estudiantes(nombreEstudiante, dniEstudiante);
                 listaEstudiantes.addObject(estudianteExistente);
+                listaEstudiantes.Order();
             }
 
             // Pedir asignatura y curso

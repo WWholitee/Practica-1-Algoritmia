@@ -136,7 +136,7 @@ public class Practica1 {
                                 encontrado =true;
                                 String codi_a= curso.CodiAssignatura(assignaturaNombre);
                                 listaEstudiantes.EliminarAsignatura(codi_a);
-                                curso.eliminarAssignatura(assignaturaNombre);
+                                //curso.eliminarAssignatura(assignaturaNombre);
                                 error="todo va bien";
                             }
                             
