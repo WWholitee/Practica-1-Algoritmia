@@ -4,8 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author ellen
+ * Clase abstracta que representa un Curso.
  */
 public abstract class Curso {
 
@@ -30,10 +29,11 @@ public abstract class Curso {
         return codi_c;
     }
 
-    public LlistaAssignatura getLlistaAssignatura() {  // Añadimos el getter
+    public LlistaAssignatura getLlistaAssignatura() {
         return llistaAssignatura;
     }
 
+    // Métodos para añadir y ordenar asignaturas
     public void AddAssignatura(Assignatura a) {
         this.llistaAssignatura.addObject(a);
     }
@@ -42,19 +42,21 @@ public abstract class Curso {
         this.llistaAssignatura.Order();
     }
 
+    // Devuelve las asignaturas como un String
     public String StringAssignaturas() {
-        String asignaturas = "";
+        StringBuilder asignaturas = new StringBuilder();
         for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
-            asignaturas += this.llistaAssignatura.getElement(i) + "\n";
+            asignaturas.append(this.llistaAssignatura.getElement(i)).append("\n");
         }
-        return asignaturas;
+        return asignaturas.toString();
     }
 
+    // Métodos abstractos para obtener tipo y mostrar datos del curso
     public abstract String getTipo();
 
     public abstract void mostrarDatos();
 
-    //METODO QUE ELIMINA UNA ASIGNATURA SEGUN SU NOMBRE
+    // Método que elimina una asignatura según su nombre
     public void eliminarAssignatura(String nombre, JFrame parentFrame) {
         Assignatura assignatura;
         boolean encontrado = false;
@@ -65,35 +67,33 @@ public abstract class Curso {
                 encontrado = true;
                 break;
             }
-        } // Mostrar el mensaje en una ventana emergente 
-        if (encontrado) {
-            JOptionPane.showMessageDialog(parentFrame, "Se ha eliminado la asignatura: " + nombre, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(parentFrame, "No se ha encontrado la asignatura: " + nombre, "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } // Método para imprimir detalles de cada asignatura y los estudiantes matriculados public void imprimirAsignaturasConDetalles() { System.out.println("Listado de Asignaturas del curso " + nombre_c + " (Código: " + codi_c + "):"); for (int i = 0; i < llistaAssignatura.longitud(); i++) { Assignatura asignatura = llistaAssignatura.getObject(i); System.out.println(asignatura.toStringConDetalles()); asignatura.imprimirMatriculados(); } }
-    //AÑADIMOS EL CODIGO DEL ALUMNO A UNA ASIGNATURA
 
+        // Mostrar mensaje en una ventana emergente
+        String mensaje = encontrado 
+            ? "Se ha eliminado la asignatura: " + nombre
+            : "No se ha encontrado la asignatura: " + nombre;
+        String tipoMensaje = encontrado ? "Éxito" : "Error";
+        JOptionPane.showMessageDialog(parentFrame, mensaje, tipoMensaje, 
+                encontrado ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+    }
+
+    // Método para añadir un alumno a una asignatura
     public void AfegirAlumneAAssignatura(String codi, String dni) {
         Assignatura assignatura;
         boolean encontrado = false;
         for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
             assignatura = this.llistaAssignatura.getObject(i);
-
-            if (assignatura.compareCodi(codi) == true) {
-                this.llistaAssignatura.getObject(i).AfegirEstudiant(dni);
+            if (assignatura.compareCodi(codi)) {
+                assignatura.AfegirEstudiant(dni);
                 encontrado = true;
-
+                break;
             }
         }
-        if (encontrado = true) {
-            System.out.println("Se ha eliminado");
-        } else {
-            System.out.println("No se ha encontrado la assignatura");
-        }
+        System.out.println(encontrado ? "Se ha añadido el alumno" : "No se ha encontrado la asignatura");
     }
 
-    // Nuevo método para buscar una asignatura por código
+    // Método para buscar una asignatura por código
     public Assignatura getAsignaturaPorCodigo(String codigo) {
         for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
             Assignatura asignatura = this.llistaAssignatura.getObject(i);
@@ -104,20 +104,17 @@ public abstract class Curso {
         return null; // Si no se encuentra la asignatura
     }
 
-    //Metodo que devuelve true si la asignatura existe en el curso
+    // Método que devuelve true si la asignatura existe en el curso
     public boolean ExisteAssignatura(String nom) {
-        Assignatura assignatura;
-        boolean encontrado = false;
         for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
-            assignatura = this.llistaAssignatura.getObject(i);
-            if (assignatura.compareNom(nom) == true) {
-                encontrado = true;
+            if (this.llistaAssignatura.getObject(i).compareNom(nom)) {
+                return true;
             }
         }
-        return encontrado;
+        return false;
     }
 
-    //STRING CON DETALLES 
+    // Devuelve detalles del curso
     public String toStringConDetalles() {
         String tipo = "Opcional";
         String especializacio_curso = "";
@@ -125,37 +122,29 @@ public abstract class Curso {
         // Si es asignatura obligatoria
         if (this instanceof FormacioProfessional) {
             tipo = "FormacioProfessional";
-            especializacio_curso = "Especialitat: ";
-            especializacio_curso = especializacio_curso + ((FormacioProfessional) this).getEspecialidad();
-
-        } // Si es asignatura opcional
-        else if (this instanceof Batxiller) {
+            especializacio_curso = "Especialitat: " + ((FormacioProfessional) this).getEspecialidad();
+        } else if (this instanceof Batxiller) {
             tipo = "Batxiller";
-            especializacio_curso = ((Batxiller) this).getCurso();
-            especializacio_curso = especializacio_curso + " Curso";
+            especializacio_curso = ((Batxiller) this).getCurso() + " Curso";
         }
 
-        return "Curso: " + nombre_c + " (Código: " + codi_c + ") - Tipo: " + tipo
-                + especializacio_curso;
+        return "Curso: " + nombre_c + " (Código: " + codi_c + ") - Tipo: " + tipo + ", " + especializacio_curso;
     }
 
-    //devuelve el codigo de una assignatura dado un nombre
+    // Método para obtener el código de una asignatura por nombre
     public String CodiAssignatura(String nom) {
-        String codiassignatura = "";
-        Assignatura assignatura;
-
         for (int i = 0; i < this.llistaAssignatura.longitud(); i++) {
-            assignatura = this.llistaAssignatura.getObject(i);
-            if (assignatura.compareNom(nom) == true) {
-                codiassignatura = assignatura.getIdentificador();
+            Assignatura assignatura = this.llistaAssignatura.getObject(i);
+            if (assignatura.compareNom(nom)) {
+                return assignatura.getIdentificador();
             }
         }
-        return codiassignatura;
+        return ""; // Retorna una cadena vacía si no se encuentra la asignatura
     }
 
     // Método toString
     @Override
     public String toString() {
-        return "Curso: " + nombre_c + " con codigo: " + codi_c;
+        return "Curso: " + nombre_c + " con código: " + codi_c;
     }
 }
