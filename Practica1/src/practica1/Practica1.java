@@ -53,7 +53,7 @@ public class Practica1 {
                     for (int i = 0; i < numa; i++) {
                         Assignatura a;
                         System.out.println("Añade nombre, código y número de créditos");
-                        a = new AssignaturaOblig(scanner.nextLine(), scanner.nextLine(), scanner.nextInt());
+                        a = new AssignaturaOblig(scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
                         scanner.nextLine();
                         curs.AddAssignatura(a);
                         curs.Order();
@@ -208,7 +208,7 @@ public class Practica1 {
                         error1="No hay alumno mismo nombre";
                         if(listaEstudiantes.getEstudiante(i).getDescripcion().equals(nome)){
                             //cogemos todos los codigos del estudiante
-                            for(int j =0;j<listaEstudiantes.getEstudiante(i).getList().size();j++ ){
+                            for(int j =0;j<listaEstudiantes.getEstudiante(i).getSize();j++ ){
                                 String codi_a=listaEstudiantes.getEstudiante(i).getAsignaturasMatriculadas(j);
                                 //buscamos en cada curso
                                 

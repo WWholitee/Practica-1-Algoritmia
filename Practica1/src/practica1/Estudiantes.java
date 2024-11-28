@@ -1,77 +1,76 @@
 package practica1;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ *
+ * @author ellen
+ */
 public class Estudiantes implements InterficieElemento {
 
     private String nombre;
     private String dni;
-    private String codigoCurso; // Ahora cada estudiante tiene un código de curso
-    private ArrayList<String> ListaCodiAssignatura; // Lista de códigos de asignaturas matriculadas
-
-    // Constructor
-    public Estudiantes(String nombre, String dni, String codigoCurso) {
-        this.nombre = nombre;
-        this.dni = dni;
-        this.codigoCurso = codigoCurso;
-        this.ListaCodiAssignatura = new ArrayList<String>();
-    }
+    //private ArrayList<String> ListaCodiAssignatura;
+    
+    private Llista_codi_assignatura la;
 
     // Constructor
     public Estudiantes(String nombre, String dni) {
         this.nombre = nombre;
         this.dni = dni;
-        this.codigoCurso = "Curso_Default"; // Código de curso por defecto
-        this.ListaCodiAssignatura = new ArrayList<String>();
+        //ListaCodiAssignatura=new ArrayList<String>();
+        la = new Llista_codi_assignatura();
     }
-
+    
     // Métodos Getters
     @Override
     public String getDescripcion() {
         return nombre;
     }
-
     @Override
     public String getIdentificador() {
         return dni;
     }
-
-    // Devuelve el código del curso al que pertenece el estudiante
-    public String getCodigoCurso() {
-        return codigoCurso;
-    }
-
-    // AÑADIR CÓDIGO DE ASIGNATURA AL ALUMNO (Matricular)
+    
+    //AÑADIR CODIGO ASIGNATURA AL ALUMNO
     public void matricularAsignatura(String codi) {
-        if (!ListaCodiAssignatura.contains(codi)) {
-            ListaCodiAssignatura.add(codi);
-        }
+        //ListaCodiAssignatura.add(codi);
+        this.la.addElement(codi);
     }
-
-    // ELIMINAR CÓDIGO DE ASIGNATURA AL ALUMNO (Desmatricular)
+    
+    //ELIMINAMOS CODIGO AIGNATURA AL ALUMNO
     public void desmatricularAsignatura(String codi) {
-        ListaCodiAssignatura.removeIf(n -> n.equals(codi)); // Usar .equals() para comparación de cadenas
+        //ListaCodiAssignatura.removeIf(n ->(n==codi));
+        la.EliminarCodi(codi);
     }
 
-    // Método devuelve código de asignatura
+    // Método devuelve codi assignatura segons codi
     public String getAsignaturasMatriculadas(int i) {
-        if (i >= 0 && i < ListaCodiAssignatura.size()) {
-            return ListaCodiAssignatura.get(i);
+        //return ListaCodiAssignatura.get(i);
+        return la.getElement(i);
+    }
+    
+    //DEVUELVE LISTA DEL CODIGO DE ASIGNATURAS
+    public int getSize(){
+        //return this.ListaCodiAssignatura;
+        return la.longitud();
+    }
+    
+    //Metodo que devuelve true si el alumno esta matriculado de esta asignatura
+    public boolean EstaMatriculado(String codi){
+        boolean matriculado=false;
+        
+        for(int i =1; i<=this.la.longitud();i++){
+            if(this.la.getElement(i).equals(codi)){
+                matriculado=true;
+            }
         }
-        return null;
+        return matriculado;
     }
-
-    // DEVUELVE LISTA DE LOS CÓDIGOS DE LAS ASIGNATURAS
-    public ArrayList<String> getList() {
-        return this.ListaCodiAssignatura;
-    }
-
-    public boolean EstaMatriculado(String codi) {
-        return ListaCodiAssignatura.contains(codi);
-    }
-
+    
     @Override
     public String toString() {
-        return "Estudiant: " + nombre + " con el dni " + dni + " (Curso: " + codigoCurso + ")";
+        return "Estudiant: " + nombre + " con el dni " + dni;
     }
 }

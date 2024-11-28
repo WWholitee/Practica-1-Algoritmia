@@ -2,75 +2,87 @@ package practica1;
 
 import java.util.ArrayList;
 
-public class Assignatura implements InterficieElemento {
+/**
+ *
+ * @author ellen
+ */
+public class Assignatura implements InterficieElemento{
 
-    private String nombre_a; // Nombre de la asignatura
-    private String codi_a; // Código de la asignatura
-    private String tipo; // Tipo de asignatura ("T" o "P")
-    private ArrayList<String> listaCodiEstudiant; // Lista de códigos de estudiantes matriculados
-
-    // Constructor
-    public Assignatura(String nombre, String codi, String tipo) {
-        this.nombre_a = nombre;
-        this.codi_a = codi;
-        this.tipo = tipo; // Asignamos el tipo de la asignatura
-        this.listaCodiEstudiant = new ArrayList<>();
+   private String nombre_a;
+   private String codi_a;
+   private String tipo;
+   //private ArrayList<String> ListaCodiEstudiant;
+   private LLista_codi_estudiants le;
+   
+   
+   //constructor
+    public Assignatura(String nombre,String codi,String tipo){
+        this.nombre_a= nombre;
+        this.codi_a=codi;
+        this.tipo = tipo;
+        le=new LLista_codi_estudiants();
+        //ListaCodiEstudiant=new ArrayList<>();
+        
     }
-
     @Override
     public String toString() {
-        return "Assignatura: " + nombre_a + " con el código " + codi_a + " - Tipo: " + tipo;
+        return "Assignatura: " + nombre_a + " con el codi " + codi_a + " - Tipo: " + tipo;
     }
-
-    //Imprime una descripción de la asignatura
     public String toStringConDetalles() {
-        String tipoAsignatura = tipo.equals("T") ? "Teórica" : "Práctica";
+        String tipo = "Opcional";
+//        String credits = "Teoric";
+//        String perfil = "T/P";
+//
+//        // Si es asignatura obligatoria
+//        if (this instanceof AssignaturaOblig) {
+//            tipo = "Obligatoria";
+//            credits = ((AssignaturaOblig) this).getCreditos();
+//        } // Si es asignatura opcional
+//        else if (this instanceof AssignaturaOpt) {
+//            perfil = ((AssignaturaOpt) this).getPerfil();
+//        }
+//
+//        return "Assignatura: " + nombre_a + " (Código: " + codi_a + ") - Tipo: " + tipo
+//                + ", Créditos: " + credits + ", Perfil: " + perfil;
+
+String tipoAsignatura = tipo.equals("T") ? "Teórica" : "Práctica";
         return "Assignatura: " + nombre_a + " (Código: " + codi_a + ") - Tipo: " + tipoAsignatura;
     }
 
-    //Compara si el nombre coincide
-    public boolean compareNom(String nombrea) {
+    
+    public boolean compareNom(String nombrea){
         return this.nombre_a.equals(nombrea);
     }
-
-    //Compara si el código coincide
-    public boolean compareCodi(String codi) {
+    public boolean compareCodi(String codi){
         return this.codi_a.equals(codi);
     }
-
-    //Añade un estudiante a la lista
-    public void AfegirEstudiant(String dni) {
-        this.listaCodiEstudiant.add(dni);
+    //AÑADIMOS EL CODIGO DEL ALUMNO EN LA LISTA DE LA ASIGNATURA
+    public void AfegirEstudiant(String dni){
+       // this.ListaCodiEstudiant.add(dni);
+        this.le.addElement(dni);
     }
-
-    //Elimina a un estudiante de la lista
+    //ELIMINAMOS CODIGO DEL ALUMNO EN LA ASIGNATURA
     public void desmatricularAsignatura(String dni) {
-        this.listaCodiEstudiant.removeIf(n -> n.equals(dni));
+        //this.ListaCodiEstudiant.removeIf(n ->(n==dni));
+        this.le.EliminarCodi(dni);
     }
 
     @Override
     public String getIdentificador() {
         return codi_a;
     }
-
-    //Devuelve el código de un estudiante matriculado
-    public String getCodiEstudiant(int i) {
-        if (i >= 0 && i < this.listaCodiEstudiant.size()) {
-            return this.listaCodiEstudiant.get(i);
-        }
-        return null;
-    }
+    
+   
+//    public String getCodiEstudiant(int i) {
+//        return this.ListaCodiEstudiant.get(i);
+//    }
 
     @Override
     public String getDescripcion() {
         return nombre_a;
     }
-
     public String getNombre_a() {
         return nombre_a;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
 }
