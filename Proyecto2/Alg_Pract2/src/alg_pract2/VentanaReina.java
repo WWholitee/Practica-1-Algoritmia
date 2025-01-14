@@ -24,6 +24,7 @@ public class VentanaReina extends JFrame {
     JMenuBar barraMenu, barraBotones;
     JMenu menu;
     JButton resuelve;
+    JLabel totalSolucionesLabel; // Nueva etiqueta para mostrar el número de soluciones
     JMenuItem tamaño;
     Dimension dim;
     Tauler tauler;
@@ -38,24 +39,34 @@ public class VentanaReina extends JFrame {
         menu = new JMenu("Menú");
         tamaño = new JMenuItem("Elige el tamaño del tablero");
         resuelve = new JButton("Resolver");
+
+        totalSolucionesLabel = new JLabel("Número total de soluciones: 0"); // Inicializamos la etiqueta
+        barraBotones.add(totalSolucionesLabel); // Añadimos la etiqueta al panel de botones
+
         inicializaTablero(dimension);
         seleccionaCasilla();
+
         tamaño.addActionListener((ActionEvent ae) -> {
             removeListener();
             num = JOptionPane.showInputDialog(null, "Introduce el tamaño del tablero: ", 0);
             inicializaTablero(Integer.parseInt(num));
             seleccionaCasilla();
         });
+
         resuelve.addActionListener((ActionEvent ae) -> {
             NQueens1 p3 = new NQueens1(tablero.length, fila1, col1);
             pintaSolucio(p3.buscarSolucion());
+
+            // Actualizamos el número total de soluciones después de resolver
+            totalSolucionesLabel.setText("Número total de soluciones: " + p3.getNumeroSoluciones());
         });
+
         menu.add(tamaño);
         barraMenu.add(menu);
         barraBotones.add(resuelve);
         barraBotones.setLayout(new GridBagLayout());
         dim = new Dimension(dimension * 80, dimension * 80 + 30);
-//        this.getContentPane().add(barraMenu, BorderLayout.NORTH);
+
         this.getContentPane().add(ventana, BorderLayout.CENTER);
         this.getContentPane().add(barraBotones, BorderLayout.SOUTH);
         this.pack();
@@ -82,7 +93,6 @@ public class VentanaReina extends JFrame {
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 tablero[i][j] = new JLabel();
-//                tablero[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 pintarCasillas(i, j);
                 ventana.add(tablero[i][j]);
             }
