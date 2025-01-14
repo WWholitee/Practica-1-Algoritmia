@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -18,7 +19,7 @@ import javax.swing.WindowConstants;
 
 /**
  *
- * @author Sergi Mayol Matos & Alejandro Rodriguez Arguimbau
+ * @author Sergi
  */
 public class Alg_Pract2 extends JFrame implements ActionListener {
 
@@ -28,12 +29,12 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
     private JButton btn_siguiente;
     private JPanel contenedor;
     private JPanel jPanel1;
+    private JLabel lbl_numSoluciones; // Etiqueta para el número total de soluciones
     private int cont = 0;
     private boolean finIncio;
     private int tamTablero;
 
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
-        /* Set the Nimbus look and feel */
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -44,9 +45,8 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Alg_Pract2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        /* Create and display the form */
+
         java.awt.EventQueue.invokeLater(() -> {
-//            new Alg_Pract2().setVisible(true);
             new Alg_Pract2();
         });
     }
@@ -64,7 +64,6 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
             default:
                 throw new AssertionError();
         }
-
     }
 
     private void NqueensAllSolutions() {
@@ -73,8 +72,16 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
             lecturaDatosIniciales();
         }
         getAllTableros();
+
         setTitle("PRACTICA 2 - BACKTRACKING");
         initComponents();
+
+        // Inicializar la etiqueta para mostrar el número de soluciones
+        lbl_numSoluciones = new JLabel("Número total de soluciones: " + this.numSoluciones);
+        lbl_numSoluciones.setFont(new Font("Tahoma", Font.BOLD, 14));
+        jPanel1.add(lbl_numSoluciones, BorderLayout.NORTH); // Agregar la etiqueta al panel
+        jPanel1.validate();
+
         this.setLocationRelativeTo(null);
         btn_anterior.addActionListener(this);
         btn_siguiente.addActionListener(this);
@@ -89,7 +96,7 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
                 "Opción 1: Problema 3\nOpción 2: Problema 4",
                 "Seleccione opcion",
                 JOptionPane.QUESTION_MESSAGE,
-                null, // null para icono defecto
+                null,
                 new Object[]{"Opción 1", "Opción 2"},
                 "opcion 1");
         System.out.println("El usuario ha elegido " + seleccion);
@@ -118,7 +125,7 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
     private void getAllTableros() {
         NQueens2 q = new NQueens2(tamTablero);
         q.inicio();
-        this.numSoluciones = NQueens2.getAccount();
+        this.numSoluciones = q.getAccount();
         this.tablero = new Tablero[this.numSoluciones];
         ArrayList aux = q.getSoluciones();
         int n = q.getN();
@@ -128,12 +135,10 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
         int fila = 0, columna = 0;
         for (int i = 0; i < aux.size(); i++) {
             if (i % (n * n) == 0) {
-//                System.out.println();
-                if (!inicio && indice <= NQueens2.getAccount()) {
-                    this.tablero[indice++] = new Tablero(tableroaux, NQueens2.getAccount());
+                if (!inicio && indice <= q.getAccount()) {
+                    this.tablero[indice++] = new Tablero(tableroaux, q.getAccount());
                 }
                 if (tableroaux != null) {
-//                    System.out.println(Arrays.deepToString(tableroaux));
                     inicio = true;
                 }
                 tableroaux = new int[n][n];
@@ -141,18 +146,15 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
                 columna = 0;
             }
             if (i % n == 0) {
-//                System.out.println();
                 columna = 0;
                 if (!inicio) {
                     fila++;
                 }
                 inicio = false;
             }
-//            System.out.print(aux.get(i) + " ");
             tableroaux[fila][columna++] = (int) aux.get(i);
         }
-//        System.out.println("\n" + Arrays.deepToString(tableroaux));
-        this.tablero[indice] = new Tablero(tableroaux, NQueens2.getAccount());
+        this.tablero[indice] = new Tablero(tableroaux, q.getAccount());
     }
 
     private void deshabilitarBoton() {
@@ -168,9 +170,6 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     */
     @SuppressWarnings("unchecked")
     private void initComponents() {
         contenedor = new JPanel();
@@ -180,12 +179,12 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(744, 523));
         contenedor.setLayout(new BorderLayout());
-        btn_anterior.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        btn_anterior.setIcon(new ImageIcon(getClass().getResource("/imagenes/previous.png"))); // NOI18N
+        btn_anterior.setFont(new Font("Tahoma", 1, 14));
+        btn_anterior.setIcon(new ImageIcon(getClass().getResource("/imagenes/previous.png")));
         btn_anterior.setText("Anterior");
         jPanel1.add(btn_anterior);
-        btn_siguiente.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        btn_siguiente.setIcon(new ImageIcon(getClass().getResource("/imagenes/next.png"))); // NOI18N
+        btn_siguiente.setFont(new Font("Tahoma", 1, 14));
+        btn_siguiente.setIcon(new ImageIcon(getClass().getResource("/imagenes/next.png")));
         btn_siguiente.setText("Siguiente");
         btn_siguiente.setHorizontalTextPosition(SwingConstants.LEFT);
         jPanel1.add(btn_siguiente);
@@ -220,9 +219,7 @@ public class Alg_Pract2 extends JFrame implements ActionListener {
             }
             contenedor.validate();
             deshabilitarBoton();
-
         }
         contenedor.repaint();
-//        System.out.println(cont);
     }
 }
