@@ -8,15 +8,15 @@ import java.util.ArrayList;
  */
 public class NQueens2 {
 
-    private static int account = 0;
-    private ArrayList soluciones;
-    private int res[][];
-    private int n;
+    private static int account = 0; // Cuenta de soluciones
+    private ArrayList<Integer> soluciones; // Lista de soluciones
+    private int[][] res; // Matriz del tablero
+    private int n; // Tamaño del tablero
 
     public NQueens2(int n) {
         this.n = n;
-        this.soluciones = new ArrayList();
-        this.res = new int[n][n];				// Inicializar la matriz
+        this.soluciones = new ArrayList<>();
+        this.res = new int[n][n]; // Inicializar la matriz
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 res[i][j] = 0;
@@ -25,13 +25,14 @@ public class NQueens2 {
     }
 
     public void inicio() {
-        dfs(res, n, 0);			// Llamar a la función de búsqueda profunda
+        account = 0; // Reiniciar el contador de soluciones
+        dfs(res, n, 0); // Llamar a la función de búsqueda profunda
         System.out.println();
         System.out.println("Número total de soluciones: " + account);
         System.out.println();
     }
 
-    private void dfs(int res[][], int n, int row) {
+    private void dfs(int[][] res, int n, int row) {
         if (row == n) {
             account++;
             System.out.println();
@@ -54,15 +55,11 @@ public class NQueens2 {
         }
     }
 
-    private boolean check(int res[][], int x, int y) {
+    private boolean check(int[][] res, int x, int y) {
         for (int i = 0; i < res.length; i++) {
-            if (res[x][i] == 1) {
+            if (res[x][i] == 1 || res[i][y] == 1) {
                 return false;
             }
-            if (res[i][y] == 1) {
-                return false;
-            }
-
             for (int j = 0; j < res.length; j++) {
                 if (i + j == x + y && res[i][j] == 1) {
                     return false;
@@ -79,32 +76,19 @@ public class NQueens2 {
         return account;
     }
 
-    public static void setAccount(int account) {
-        NQueens2.account = account;
-    }
-
-    public ArrayList getSoluciones() {
+    public ArrayList<Integer> getSoluciones() {
         return soluciones;
-    }
-
-    public void setSoluciones(ArrayList soluciones) {
-        this.soluciones = soluciones;
-    }
-
-    public int[][] getRes() {
-        return res;
-    }
-
-    public void setRes(int[][] res) {
-        this.res = res;
     }
 
     public int getN() {
         return n;
     }
 
-    public void setN(int n) {
-        this.n = n;
+    public int[][] getRes() {
+        return res;
     }
 
+    public static void resetAccount() {
+        account = 0;
+    }
 }
