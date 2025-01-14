@@ -7,8 +7,9 @@ public class NQueens1 {
     private int tamTablero;
     private int fReina = 0;
     private int cReina = 0;
-    boolean[][] solucion;
-    boolean resultat = false;
+    private boolean[][] solucion;
+    private boolean resultat = false;
+    private int numeroSoluciones = 0; // Variable para contar las soluciones encontradas
 
     public NQueens1(int dimension, int fila, int columna) {
         this.tamTablero = dimension;
@@ -19,6 +20,7 @@ public class NQueens1 {
     public boolean[][] buscarSolucion() {
         Tauler tauler = new Tauler(tamTablero);
         tauler.setCasilla(this.fReina, this.cReina);
+        numeroSoluciones = 0; // Reiniciamos el contador al buscar soluciones
         if (!resolucion(tauler, 0)) {
             System.out.println("No se ha encontrado ninguna solucion");
             JOptionPane.showMessageDialog(null, "No se ha encontrado ninguna solucion");
@@ -27,87 +29,90 @@ public class NQueens1 {
     }
 
     public boolean resolucion(Tauler tauler, int columna) {
-        if (cReina == 0 && columna == cReina) {
+        if (columna == cReina) {
             columna++;
         }
 
-        for (int i = 0; i < tamTablero && !resultat; i++) {
+        for (int i = 0; i < tamTablero; i++) {
             if (esSegura(tauler, i, columna)) {
                 tauler.setCasilla(i, columna);
                 if (columna < tamTablero - 1) {
-                    if ((columna + 1) == cReina && cReina < (tamTablero - 1)) {
-                        resultat = resolucion(tauler, columna + 2);
-                    } else if ((columna + 1) == cReina && cReina == (tamTablero - 1)) {
-                        resultat = true;
-                        solucion = tauler.getMatriz();
+                    if (columna + 1 == cReina && cReina < tamTablero - 1) {
+                        resolucion(tauler, columna + 2);
                     } else {
-                        resultat = resolucion(tauler, columna + 1);
-                    }
-                    if (!resultat) {
-                        tauler.vaciarCasilla(i, columna);
+                        resolucion(tauler, columna + 1);
                     }
                 } else {
-                    resultat = true;
-                    solucion = tauler.getMatriz();
+                    // Se ha encontrado una solución
+                    numeroSoluciones++;
+                    if (solucion == null) {
+                        solucion = tauler.getMatriz();
+                    }
                 }
+                tauler.vaciarCasilla(i, columna); // Backtracking
             }
         }
-        return resultat;
+        return numeroSoluciones > 0;
     }
 
     private boolean esSegura(Tauler tauler, int fila, int columna) {
         int i, j;
-        //Comprova a l'esquerra de la fila
+        // Comprobar a la izquierda de la fila
         for (i = 0; i < columna; i++) {
             if (tauler.getCasella(fila, i)) {
                 return false;
             }
         }
-        //Comprova a la dreta de la fila
+        // Comprobar a la derecha de la fila
         for (i = columna; i < tamTablero; i++) {
             if (tauler.getCasella(fila, i)) {
                 return false;
             }
         }
 
-        //Comprova adalt de la casella
+        // Comprobar arriba de la casilla
         for (i = 0; i < fila; i++) {
             if (tauler.getCasella(i, columna)) {
                 return false;
             }
         }
-        //Comprova abaix de la casella
+        // Comprobar abajo de la casilla
         for (i = fila; i < tamTablero; i++) {
             if (tauler.getCasella(i, columna)) {
                 return false;
             }
         }
 
-        //Comprova a diagonal superior esquerra
+        // Comprobar diagonal superior izquierda
         for (i = fila, j = columna; i >= 0 && j >= 0; i--, j--) {
             if (tauler.getCasella(i, j)) {
                 return false;
             }
         }
-        //Comprova la diagonal inferior esquerra
+        // Comprobar diagonal inferior izquierda
         for (i = fila, j = columna; j >= 0 && i < tamTablero; i++, j--) {
             if (tauler.getCasella(i, j)) {
                 return false;
             }
         }
 
-        //Comprova a diagonal superior dreta
+        // Comprobar diagonal superior derecha
         for (i = fila, j = columna; i >= 0 && j < tamTablero; i--, j++) {
             if (tauler.getCasella(i, j)) {
                 return false;
             }
         }
-        //Comprova la diagonal inferior dreta
+        // Comprobar diagonal inferior derecha
         for (i = fila, j = columna; j < tamTablero && i < tamTablero; i++, j++) {
             if (tauler.getCasella(i, j)) {
                 return false;
             }
         }
         return true;
+    }
+
+    // Método para obtener el número total de soluciones
+    public int getNumeroSoluciones() {
+        return numeroSoluciones;
     }
 }
