@@ -33,7 +33,7 @@ public class Tablero extends JPanel {
                 } else {
                     casilla = new Casilla("src/imagenes/none.png");
                 }
-                casilla.setBackground((i + j) % 2 == 0 ? new Color(227, 206, 167) : new Color(166, 126, 91));
+                casilla.setBackground((i + j) % 2 == 0 ? new Color(240, 240, 240) : new Color(40, 40, 40));
                 add(casilla);
             }
         }

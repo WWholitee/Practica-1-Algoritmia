@@ -101,9 +101,9 @@ public class VentanaReina extends JFrame {
 
     private void pintarCasillas(int i, int j) {
         if ((i + j) % 2 == 0) {
-            tablero[i][j].setBackground(new Color(227, 206, 167));
+            tablero[i][j].setBackground(new Color(240, 240, 240));
         } else {
-            tablero[i][j].setBackground(new Color(166, 126, 91));
+            tablero[i][j].setBackground(new Color(40, 40, 40));
         }
         tablero[i][j].setOpaque(true);
     }

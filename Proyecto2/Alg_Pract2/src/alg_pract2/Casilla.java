@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Sergi
+ * @author ellen
  */
 public class Casilla extends JPanel {
 

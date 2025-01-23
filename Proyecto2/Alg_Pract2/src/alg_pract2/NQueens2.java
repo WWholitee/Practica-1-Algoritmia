@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Sergi
+ * @author ellen
  */
 public class NQueens2 {
 

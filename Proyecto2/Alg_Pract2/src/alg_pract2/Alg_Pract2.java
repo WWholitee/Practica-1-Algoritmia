@@ -19,7 +19,7 @@ import javax.swing.WindowConstants;
 
 /**
  *
- * @author Sergi
+ * @author ellen
  */
 public class Alg_Pract2 extends JFrame implements ActionListener {
 
